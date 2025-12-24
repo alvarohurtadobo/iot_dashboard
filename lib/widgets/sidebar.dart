@@ -18,7 +18,7 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const colorFoundations = ColorsFoundations();
+    final colorFoundations = ColorsFoundations();
     final currentRoute = GoRouterState.of(context).uri.path;
 
     final menuItems = [
@@ -89,14 +89,33 @@ class Sidebar extends StatelessWidget {
           Expanded(
             child: ListView(
               padding: EdgeInsets.symmetric(vertical: AppSizes.sizeXs),
-              children: menuItems.map((item) {
-                final isActive = currentRoute == item.route;
-                return _buildMenuItem(
-                  context,
-                  item: item,
-                  isActive: isActive,
-                );
-              }).toList(),
+              children: [
+                ...menuItems.map((item) {
+                  final isActive = currentRoute == item.route;
+                  return _buildMenuItem(
+                    context,
+                    item: item,
+                    isActive: isActive,
+                  );
+                }).toList(),
+                // Minimize/Expand button (only on large screens, not drawer)
+                if (!isDrawer) ...[
+                  Divider(),
+                  ListTile(
+                    leading: Icon(
+                      isExpanded ? Icons.chevron_left : Icons.chevron_right,
+                      color: colorFoundations.textTertiary,
+                    ),
+                    title: isExpanded
+                        ? Text(
+                            'Minimizar',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          )
+                        : null,
+                    onTap: onToggle,
+                  ),
+                ],
+              ],
             ),
           ),
           
@@ -116,7 +135,7 @@ class Sidebar extends StatelessWidget {
   }
 
   Widget _buildUserProfile(BuildContext context) {
-    const colorFoundations = ColorsFoundations();
+    final colorFoundations = ColorsFoundations();
     
     return Container(
       padding: EdgeInsets.all(isExpanded ? AppSizes.sizeMd : AppSizes.sizeXs),
@@ -165,7 +184,7 @@ class Sidebar extends StatelessWidget {
     required _MenuItem item,
     required bool isActive,
   }) {
-    const colorFoundations = ColorsFoundations();
+    final colorFoundations = ColorsFoundations();
     
     final icon = isActive ? item.activeIcon : item.icon;
     
@@ -205,38 +224,11 @@ class Sidebar extends StatelessWidget {
       },
     );
 
-    // Minimize/Expand button (only on large screens, not drawer)
-    if (!isDrawer && item.route == AppRoutes.home) {
-      return Column(
-        children: [
-          menuItem,
-          if (isExpanded)
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSizes.sizeXs),
-              child: Divider(),
-            ),
-          ListTile(
-            leading: Icon(
-              isExpanded ? Icons.chevron_left : Icons.chevron_right,
-              color: colorFoundations.textTertiary,
-            ),
-            title: isExpanded
-                ? Text(
-                    'Minimizar',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  )
-                : null,
-            onTap: onToggle,
-          ),
-        ],
-      );
-    }
-
     return menuItem;
   }
 
   Widget _buildVersionSection(BuildContext context) {
-    const colorFoundations = ColorsFoundations();
+    final colorFoundations = ColorsFoundations();
     
     return Container(
       padding: EdgeInsets.all(AppSizes.sizeXs),

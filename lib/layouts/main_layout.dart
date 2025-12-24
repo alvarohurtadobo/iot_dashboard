@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iot_dashboard/widgets/sidebar.dart';
 import 'package:iot_dashboard/common/constants/colors.dart';
-import 'package:iot_dashboard/common/constants/sizes.dart';
 
 class MainLayout extends StatefulWidget {
   final Widget child;
@@ -16,7 +15,6 @@ class MainLayout extends StatefulWidget {
 }
 
 class _MainLayoutState extends State<MainLayout> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isSidebarExpanded = true;
 
   @override
@@ -28,7 +26,6 @@ class _MainLayoutState extends State<MainLayout> {
     if (isLargeScreen) {
       // Large screen: Sidebar always visible (can be minimized)
       return Scaffold(
-        key: _scaffoldKey,
         backgroundColor: colorFoundations.backgroundPagePrimary,
         body: Row(
           children: [
@@ -52,7 +49,6 @@ class _MainLayoutState extends State<MainLayout> {
     } else {
       // Small screen: Drawer
       return Scaffold(
-        key: _scaffoldKey,
         backgroundColor: colorFoundations.backgroundPagePrimary,
         drawer: Sidebar(
           isExpanded: true,
@@ -61,7 +57,32 @@ class _MainLayoutState extends State<MainLayout> {
             Navigator.of(context).pop(); // Close drawer
           },
         ),
-        body: widget.child,
+        body: Builder(
+          builder: (context) {
+            // Add menu button for mobile
+            return Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.menu),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(child: widget.child),
+              ],
+            );
+          },
+        ),
       );
     }
   }
