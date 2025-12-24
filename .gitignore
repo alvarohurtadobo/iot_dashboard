@@ -7,6 +7,12 @@
 .buildlog/
 .history
 
+# Visual Studio Code related
+.classpath
+.project
+.settings/
+.vscode/*
+
 # IDE - IntelliJ / Android Studio
 *.iml
 .idea/
