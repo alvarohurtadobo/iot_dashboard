@@ -26,7 +26,7 @@ class Sidebar extends StatelessWidget {
         title: 'Home',
         icon: Icons.home_outlined,
         activeIcon: Icons.home,
-        route: AppRoutes.home,
+        route: AppRoutes.dashboard,
       ),
       _MenuItem(
         title: 'Empresa',
