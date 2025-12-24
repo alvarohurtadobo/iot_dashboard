@@ -10,6 +10,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const colorFoundations = ColorsFoundations();
+    print('WelcomePage build');
 
     return Scaffold(
       backgroundColor: colorFoundations.backgroundPagePrimary,
