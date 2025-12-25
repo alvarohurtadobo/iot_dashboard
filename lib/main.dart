@@ -6,6 +6,7 @@ import 'package:iot_dashboard/core/storage/token_storage.dart';
 import 'package:iot_dashboard/data/datasources/auth_remote_datasource.dart';
 import 'package:iot_dashboard/data/repositories/auth_repository.dart';
 import 'package:iot_dashboard/domain/bloc/auth/auth_bloc.dart';
+import 'package:iot_dashboard/domain/bloc/auth/auth_event.dart';
 import 'package:iot_dashboard/router/app_router.dart';
 
 void main() {

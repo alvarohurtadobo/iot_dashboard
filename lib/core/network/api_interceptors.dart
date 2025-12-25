@@ -5,6 +5,7 @@ import 'package:iot_dashboard/core/storage/token_storage.dart';
 class AuthInterceptor extends Interceptor {
   final TokenStorage tokenStorage;
   final Dio dio;
+  bool _isRefreshing = false;
 
   AuthInterceptor(this.tokenStorage, this.dio);
 
@@ -30,8 +31,10 @@ class AuthInterceptor extends Interceptor {
     // Si recibimos 401, intentar refrescar el token
     if (err.response?.statusCode == 401 && 
         err.requestOptions.path != ApiConstants.login &&
-        err.requestOptions.path != ApiConstants.refreshToken) {
+        err.requestOptions.path != ApiConstants.refreshToken &&
+        !_isRefreshing) {
       
+      _isRefreshing = true;
       try {
         final refreshed = await _refreshToken();
         if (refreshed) {
@@ -41,11 +44,13 @@ class AuthInterceptor extends Interceptor {
           
           final response = await dio.fetch(err.requestOptions);
           handler.resolve(response);
+          _isRefreshing = false;
           return;
         }
       } catch (e) {
         // Si falla el refresh, limpiar tokens
         await tokenStorage.clearTokens();
+        _isRefreshing = false;
       }
     }
     
@@ -59,7 +64,16 @@ class AuthInterceptor extends Interceptor {
         return false;
       }
 
-      final response = await dio.post(
+      // Crear un dio temporal sin interceptores para evitar ciclos
+      final refreshDio = Dio(BaseOptions(
+        baseUrl: ApiConstants.baseUrl,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ));
+
+      final response = await refreshDio.post(
         ApiConstants.refreshToken,
         data: {'refresh_token': refreshToken},
       );
