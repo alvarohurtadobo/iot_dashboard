@@ -32,9 +32,9 @@ class AuthRemoteDataSource {
         ApiConstants.logout,
         data: request.toJson(),
       );
-    } on DioException catch (e) {
-      // Continuar con logout local incluso si falla el servidor
-      throw _handleError(e);
+    } on DioException {
+      // Ignorar errores del servidor en logout, siempre continuar con logout local
+      // Si falla la conexión, aún así queremos limpiar los tokens localmente
     }
   }
 
