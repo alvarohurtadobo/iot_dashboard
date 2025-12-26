@@ -1,5 +1,6 @@
 import 'package:iot_dashboard/core/network/api_exceptions.dart';
 import 'package:iot_dashboard/features/auth/domain/models/auth_credentials.dart';
+import 'package:iot_dashboard/features/auth/domain/models/auth_tokens.dart';
 import 'package:iot_dashboard/features/auth/domain/repositories/auth_repository.dart';
 
 /// UseCase para realizar el login
@@ -16,7 +17,7 @@ class LoginUseCase {
   Future<AuthTokens> execute(AuthCredentials credentials) async {
     // Validación de negocio (si fuera necesaria)
     if (credentials.email.isEmpty || credentials.password.isEmpty) {
-      throw const ApiException('Email y contraseña son requeridos');
+      throw ApiException('Email y contraseña son requeridos');
     }
 
     // Delegar al repositorio
