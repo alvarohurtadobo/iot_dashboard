@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iot_dashboard/common/constants/colors.dart';
 import 'package:iot_dashboard/common/constants/sizes.dart';
-import 'package:iot_dashboard/data/models/auth/login_request.dart';
-import 'package:iot_dashboard/domain/bloc/auth/auth_bloc.dart';
-import 'package:iot_dashboard/domain/bloc/auth/auth_event.dart';
-import 'package:iot_dashboard/domain/bloc/auth/auth_state.dart';
+import 'package:iot_dashboard/features/auth/domain/models/auth_credentials.dart';
+import 'package:iot_dashboard/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:iot_dashboard/features/auth/presentation/bloc/auth_event.dart';
+import 'package:iot_dashboard/features/auth/presentation/bloc/auth_state.dart';
 import 'package:iot_dashboard/router/app_router.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthBloc>().add(
             LoginRequested(
-              LoginRequest(
+              AuthCredentials(
                 email: _emailController.text.trim(),
                 password: _passwordController.text,
               ),
