@@ -8,7 +8,6 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const colorFoundations = ColorsFoundations();
-    print('DashboardPage build');
 
     return Scaffold(
       backgroundColor: colorFoundations.backgroundPagePrimary,
