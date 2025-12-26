@@ -356,7 +356,7 @@ class DashboardPage extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(AppSizes.sizeXs),
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.1),
+                color: iconColor.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppSizes.size2Xs),
               ),
               child: Icon(
@@ -436,7 +436,7 @@ class DashboardPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(AppSizes.size2Xs),
             decoration: BoxDecoration(
-              color: event.color.withOpacity(0.1),
+              color: event.color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppSizes.size2Xs),
             ),
             child: Icon(
