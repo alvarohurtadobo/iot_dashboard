@@ -67,7 +67,9 @@ class Sidebar extends StatelessWidget {
       ),
     ];
 
-    Widget sidebarContent = Container(
+    Widget sidebarContent = AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeInOut,
       width: isExpanded ? 280 : 80,
       decoration: BoxDecoration(
         color: colorFoundations.backgroundComponentPrimary,
@@ -98,21 +100,25 @@ class Sidebar extends StatelessWidget {
                     isActive: isActive,
                   );
                 }),
-                // Minimize/Expand button (only on large screens, not drawer)
+                // Minimize/Expand button (only on desktop/large screens, not drawer)
                 if (!isDrawer) ...[
                   Divider(),
-                  ListTile(
-                    leading: Icon(
-                      isExpanded ? Icons.chevron_left : Icons.chevron_right,
-                      color: colorFoundations.textTertiary,
+                  Tooltip(
+                    message: isExpanded ? 'Minimizar sidebar' : 'Expandir sidebar',
+                    child: ListTile(
+                      leading: Icon(
+                        isExpanded ? Icons.chevron_left : Icons.chevron_right,
+                        color: colorFoundations.textTertiary,
+                      ),
+                      title: isExpanded
+                          ? Text(
+                              'Minimizar',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            )
+                          : null,
+                      onTap: onToggle,
+                      hoverColor: colorFoundations.interactionTertiary,
                     ),
-                    title: isExpanded
-                        ? Text(
-                            'Minimizar',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          )
-                        : null,
-                    onTap: onToggle,
                   ),
                 ],
               ],
