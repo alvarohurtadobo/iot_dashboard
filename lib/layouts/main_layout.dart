@@ -1,6 +1,5 @@
-import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform;
 import 'package:iot_dashboard/widgets/sidebar.dart';
 import 'package:iot_dashboard/common/constants/colors.dart';
 
@@ -22,7 +21,9 @@ class _MainLayoutState extends State<MainLayout> {
   /// Detecta si la app está corriendo en desktop (Windows, macOS, Linux)
   bool _isDesktop() {
     if (kIsWeb) return false; // Web no se considera desktop para sidebar minimizable
-    return Platform.isWindows || Platform.isMacOS || Platform.isLinux;
+    return defaultTargetPlatform == TargetPlatform.windows ||
+        defaultTargetPlatform == TargetPlatform.macOS ||
+        defaultTargetPlatform == TargetPlatform.linux;
   }
 
   @override
