@@ -55,7 +55,6 @@ class IoTDashboardApp extends StatelessWidget {
         darkTheme: createDarkTheme(),
         themeMode: ThemeMode.light,
         routerConfig: appRouter,
-        debugShowCheckedModeBanner: false,
       ),
     );
   }
