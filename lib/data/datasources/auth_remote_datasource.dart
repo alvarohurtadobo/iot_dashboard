@@ -33,8 +33,8 @@ class AuthRemoteDataSource {
         data: request.toJson(),
       );
     } on DioException {
-      // Ignorar errores del servidor en logout, siempre continuar con logout local
-      // Si falla la conexión, aún así queremos limpiar los tokens localmente
+      // Ignore server errors on logout, always continue with local logout
+      // If connection fails, we still want to clear tokens locally
     }
   }
 
@@ -56,7 +56,7 @@ class AuthRemoteDataSource {
       final statusCode = error.response!.statusCode;
       final message = error.response?.data['detail'] ?? 
                      error.response?.data['message'] ?? 
-                     'Error en la petición';
+                     'Request error';
 
       switch (statusCode) {
         case 401:
@@ -73,10 +73,10 @@ class AuthRemoteDataSource {
     if (error.type == DioExceptionType.connectionTimeout ||
         error.type == DioExceptionType.receiveTimeout ||
         error.type == DioExceptionType.connectionError) {
-      return NetworkException('Error de conexión. Verifica tu internet.');
+      return NetworkException('Connection error. Check your internet.');
     }
     
-    return NetworkException('Error de conexión');
+    return NetworkException('Connection error');
   }
 }
 

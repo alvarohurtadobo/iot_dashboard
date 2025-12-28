@@ -38,7 +38,7 @@ class AuthInterceptor extends Interceptor {
       try {
         final refreshed = await _refreshToken();
         if (refreshed) {
-          // Reintentar la petición original con el nuevo token
+          // Retry the original request with the new token
           final token = await tokenStorage.getAccessToken();
           err.requestOptions.headers['Authorization'] = 'Bearer $token';
           
@@ -48,7 +48,7 @@ class AuthInterceptor extends Interceptor {
           return;
         }
       } catch (e) {
-        // Si falla el refresh, limpiar tokens
+        // If refresh fails, clear tokens
         await tokenStorage.clearTokens();
         _isRefreshing = false;
       }
@@ -64,7 +64,7 @@ class AuthInterceptor extends Interceptor {
         return false;
       }
 
-      // Crear un dio temporal sin interceptores para evitar ciclos
+      // Create a temporary dio without interceptors to avoid cycles
       final refreshDio = Dio(BaseOptions(
         baseUrl: ApiConstants.baseUrl,
         headers: {
@@ -88,7 +88,7 @@ class AuthInterceptor extends Interceptor {
         return true;
       }
     } catch (e) {
-      // Error al refrescar
+      // Error refreshing
     }
     return false;
   }
