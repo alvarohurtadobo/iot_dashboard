@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-/// DTO (Data Transfer Object) para el request de login
-/// Representa los datos tal como se envían al API
+/// DTO (Data Transfer Object) for login request
+/// Represents data as sent to the API
 class LoginRequestDto extends Equatable {
   final String email;
   final String password;

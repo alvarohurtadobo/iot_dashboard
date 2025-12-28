@@ -11,7 +11,7 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    // No agregar token a endpoints públicos
+    // Do not add token to public endpoints
     if (options.path == ApiConstants.login || 
         options.path == ApiConstants.refreshToken ||
         options.path == ApiConstants.health) {
@@ -28,7 +28,7 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    // Si recibimos 401, intentar refrescar el token
+    // If we receive 401, try to refresh the token
     if (err.response?.statusCode == 401 && 
         err.requestOptions.path != ApiConstants.login &&
         err.requestOptions.path != ApiConstants.refreshToken &&

@@ -1,13 +1,13 @@
 import 'package:iot_dashboard/features/auth/domain/repositories/auth_repository.dart';
 
-/// UseCase para realizar el logout
-/// Contiene la lógica de negocio relacionada con cerrar sesión
+/// UseCase to perform logout
+/// Contains business logic related to closing session
 class LogoutUseCase {
   final AuthRepository repository;
 
   LogoutUseCase(this.repository);
 
-  /// Ejecuta el caso de uso de logout
+  /// Executes the logout use case
   Future<void> execute() async {
     await repository.logout();
   }

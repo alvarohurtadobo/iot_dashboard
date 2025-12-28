@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-/// Domain model para tokens de autenticación
-/// Representa los tokens en el dominio de la aplicación
+/// Domain model for authentication tokens
+/// Represents tokens in the application domain
 class AuthTokens extends Equatable {
   final String accessToken;
   final String refreshToken;

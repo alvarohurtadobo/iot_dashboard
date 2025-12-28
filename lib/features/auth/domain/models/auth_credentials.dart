@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-/// Domain model para credenciales de autenticación
-/// Representa los datos del dominio, no los datos de la API
+/// Domain model for authentication credentials
+/// Represents domain data, not API data
 class AuthCredentials extends Equatable {
   final String email;
   final String password;

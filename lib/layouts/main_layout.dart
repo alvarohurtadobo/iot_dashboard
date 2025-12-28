@@ -18,9 +18,9 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   bool _isSidebarExpanded = true;
 
-  /// Detecta si la app está corriendo en desktop (Windows, macOS, Linux)
+  /// Detects if the app is running on desktop (Windows, macOS, Linux)
   bool _isDesktop() {
-    if (kIsWeb) return false; // Web no se considera desktop para sidebar minimizable
+    if (kIsWeb) return false; // Web is not considered desktop for minimizable sidebar
     return defaultTargetPlatform == TargetPlatform.windows ||
         defaultTargetPlatform == TargetPlatform.macOS ||
         defaultTargetPlatform == TargetPlatform.linux;
@@ -33,8 +33,8 @@ class _MainLayoutState extends State<MainLayout> {
     final isLargeScreen = screenWidth >= 900;
     final isDesktop = _isDesktop();
 
-    // En desktop, siempre mostrar sidebar minimizable
-    // En web/tablet grande, también permitir minimizar
+    // On desktop, always show minimizable sidebar
+    // On web/large tablet, also allow minimizing
     if (isDesktop || isLargeScreen) {
       return Scaffold(
         backgroundColor: colorFoundations.backgroundPagePrimary,
@@ -62,7 +62,7 @@ class _MainLayoutState extends State<MainLayout> {
         ),
       );
     } else {
-      // Mobile/Tablet pequeño: Drawer
+      // Mobile/Small Tablet: Drawer
       return Scaffold(
         backgroundColor: colorFoundations.backgroundPagePrimary,
         drawer: Sidebar(

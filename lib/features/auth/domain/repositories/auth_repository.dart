@@ -1,16 +1,16 @@
 import 'package:iot_dashboard/features/auth/domain/models/auth_credentials.dart';
 import 'package:iot_dashboard/features/auth/domain/models/auth_tokens.dart';
 
-/// Interface del repositorio de autenticación en Domain Layer
-/// Define el contrato sin depender de implementaciones concretas
+/// Authentication repository interface in Domain Layer
+/// Defines the contract without depending on concrete implementations
 abstract class AuthRepository {
-  /// Realiza el login y retorna los tokens
+  /// Performs login and returns tokens
   Future<AuthTokens> login(AuthCredentials credentials);
 
-  /// Cierra la sesión del usuario
+  /// Closes the user session
   Future<void> logout();
 
-  /// Verifica si el usuario está autenticado
+  /// Checks if the user is authenticated
   Future<bool> isAuthenticated();
 }
 
