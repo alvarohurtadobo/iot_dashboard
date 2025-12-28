@@ -17,3 +17,5 @@ class AuthTokens extends Equatable {
   List<Object> get props => [accessToken, refreshToken, tokenType];
 }
 
+
+

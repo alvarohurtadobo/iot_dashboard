@@ -20,3 +20,5 @@ class LoginRequestDto extends Equatable {
   List<Object> get props => [email, password];
 }
 
+
+
