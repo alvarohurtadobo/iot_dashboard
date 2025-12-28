@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:iot_dashboard/features/auth/domain/models/auth_credentials.dart';
 
-/// Eventos del AuthBloc
+/// AuthBloc events
 abstract class AuthEvent extends Equatable {
   const AuthEvent();
 
@@ -9,7 +9,7 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-/// Evento para solicitar login
+/// Event to request login
 class LoginRequested extends AuthEvent {
   final AuthCredentials credentials;
 
@@ -19,12 +19,12 @@ class LoginRequested extends AuthEvent {
   List<Object> get props => [credentials];
 }
 
-/// Evento para solicitar logout
+/// Event to request logout
 class LogoutRequested extends AuthEvent {
   const LogoutRequested();
 }
 
-/// Evento para verificar el estado de autenticación
+/// Event to check authentication status
 class AuthStatusChecked extends AuthEvent {
   const AuthStatusChecked();
 }

@@ -3,24 +3,24 @@ import 'package:iot_dashboard/features/auth/domain/models/auth_credentials.dart'
 import 'package:iot_dashboard/features/auth/domain/models/auth_tokens.dart';
 import 'package:iot_dashboard/features/auth/domain/repositories/auth_repository.dart';
 
-/// UseCase para realizar el login
-/// Contiene la lógica de negocio relacionada con la autenticación
+/// UseCase to perform login
+/// Contains business logic related to authentication
 class LoginUseCase {
   final AuthRepository repository;
 
   LoginUseCase(this.repository);
 
-  /// Ejecuta el caso de uso de login
+  /// Executes the login use case
   /// 
-  /// Retorna [AuthTokens] si el login es exitoso
-  /// Lanza [ApiException] si hay un error
+  /// Returns [AuthTokens] if login is successful
+  /// Throws [ApiException] if there is an error
   Future<AuthTokens> execute(AuthCredentials credentials) async {
-    // Validación de negocio (si fuera necesaria)
+    // Business validation (if needed)
     if (credentials.email.isEmpty || credentials.password.isEmpty) {
-      throw ApiException('Email y contraseña son requeridos');
+      throw ApiException('Email and password are required');
     }
 
-    // Delegar al repositorio
+    // Delegate to repository
     return await repository.login(credentials);
   }
 }

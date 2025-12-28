@@ -6,14 +6,14 @@ import 'package:iot_dashboard/features/auth/data/dto/login_request_dto.dart';
 import 'package:iot_dashboard/features/auth/data/dto/login_response_dto.dart';
 import 'package:iot_dashboard/features/auth/data/dto/logout_request_dto.dart';
 
-/// Interface del DataSource remoto
-/// Define el contrato para obtener datos del API
+/// Remote DataSource interface
+/// Defines the contract to get data from the API
 abstract class AuthRemoteDataSource {
   Future<LoginResponseDto> login(LoginRequestDto request);
   Future<void> logout(LogoutRequestDto request);
 }
 
-/// Implementación del DataSource remoto para autenticación
+/// Remote DataSource implementation for authentication
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final ApiClient apiClient;
 
@@ -41,8 +41,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         data: request.toJson(),
       );
     } on DioException {
-      // Ignorar errores del servidor en logout
-      // Siempre continuar con logout local
+      // Ignore server errors on logout
+      // Always continue with local logout
     }
   }
 
@@ -51,7 +51,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final statusCode = error.response!.statusCode;
       final message = error.response?.data['detail'] ??
           error.response?.data['message'] ??
-          'Error en la petición';
+          'Request error';
 
       switch (statusCode) {
         case 401:
@@ -68,10 +68,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     if (error.type == DioExceptionType.connectionTimeout ||
         error.type == DioExceptionType.receiveTimeout ||
         error.type == DioExceptionType.connectionError) {
-      return NetworkException('Error de conexión. Verifica tu internet.');
+      return NetworkException('Connection error. Check your internet.');
     }
 
-    return NetworkException('Error de conexión');
+    return NetworkException('Connection error');
   }
 }
 

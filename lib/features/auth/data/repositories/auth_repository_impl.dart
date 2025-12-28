@@ -6,9 +6,9 @@ import 'package:iot_dashboard/features/auth/domain/models/auth_tokens.dart';
 import 'package:iot_dashboard/features/auth/domain/repositories/auth_repository.dart';
 import 'package:iot_dashboard/features/auth/data/dto/login_request_dto.dart';
 
-/// Implementación del repositorio de autenticación
-/// Convierte entre modelos de dominio y DTOs
-/// Orquesta las operaciones entre DataSource y Storage
+/// Implementation of the authentication repository
+/// Converts between domain models and DTOs
+/// Orchestrates operations between DataSource and Storage
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;
   final TokenStorage tokenStorage;
@@ -20,19 +20,19 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<AuthTokens> login(AuthCredentials credentials) async {
-    // Convertir modelo de dominio a DTO
+    // Convert domain model to DTO
     final requestDto = LoginRequestDto(
       email: credentials.email,
       password: credentials.password,
     );
 
-    // Llamar al DataSource
+    // Call DataSource
     final responseDto = await remoteDataSource.login(requestDto);
 
-    // Convertir DTO a modelo de dominio
+    // Convert DTO to domain model
     final tokens = responseDto.toDomain();
 
-    // Guardar tokens en storage
+    // Save tokens in storage
     await tokenStorage.saveTokens(
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
@@ -51,7 +51,7 @@ class AuthRepositoryImpl implements AuthRepository {
         await remoteDataSource.logout(requestDto);
       }
     } catch (e) {
-      // Continuar con logout local incluso si falla el servidor
+      // Continue with local logout even if server fails
     } finally {
       await tokenStorage.clearTokens();
     }
