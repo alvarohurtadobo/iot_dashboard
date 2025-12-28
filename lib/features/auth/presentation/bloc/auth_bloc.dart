@@ -6,8 +6,8 @@ import 'package:iot_dashboard/features/auth/domain/usecases/logout_usecase.dart'
 import 'package:iot_dashboard/features/auth/presentation/bloc/auth_event.dart';
 import 'package:iot_dashboard/features/auth/presentation/bloc/auth_state.dart';
 
-/// BLoC para manejar el estado de autenticación
-/// Usa UseCases en lugar de acceder directamente al repositorio
+/// BLoC to handle authentication state
+/// Uses UseCases instead of accessing the repository directly
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
   final LogoutUseCase logoutUseCase;
@@ -34,7 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on ApiException catch (e) {
       emit(AuthError(e.message));
     } catch (e) {
-      emit(AuthError('Error inesperado. Intenta de nuevo.'));
+      emit(AuthError('Unexpected error. Please try again.'));
     }
   }
 
@@ -47,7 +47,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await logoutUseCase.execute();
       emit(AuthUnauthenticated());
     } catch (e) {
-      // Incluso si falla, marcamos como no autenticado
+      // Even if it fails, mark as unauthenticated
       emit(AuthUnauthenticated());
     }
   }
