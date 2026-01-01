@@ -29,5 +29,10 @@ class AuthStatusChecked extends AuthEvent {
   const AuthStatusChecked();
 }
 
+/// Event to login as guest
+class GuestLoginRequested extends AuthEvent {
+  const GuestLoginRequested();
+}
+
 
 

@@ -21,6 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequested>(_onLoginRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<AuthStatusChecked>(_onAuthStatusChecked);
+    on<GuestLoginRequested>(_onGuestLoginRequested);
   }
 
   Future<void> _onLoginRequested(
@@ -62,6 +63,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       emit(AuthUnauthenticated());
     }
+  }
+
+  Future<void> _onGuestLoginRequested(
+    GuestLoginRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    // Allow guest access without authentication
+    emit(AuthGuest());
   }
 }
 

@@ -32,5 +32,10 @@ class AuthError extends AuthState {
   List<Object> get props => [message];
 }
 
+/// Estado de invitado (acceso sin autenticación)
+class AuthGuest extends AuthState {
+  const AuthGuest();
+}
+
 
 

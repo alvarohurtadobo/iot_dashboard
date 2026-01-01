@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthAuthenticated) {
+        if (state is AuthAuthenticated || state is AuthGuest) {
           context.go(AppRoutes.dashboard);
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
