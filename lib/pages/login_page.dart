@@ -185,6 +185,25 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 SizedBox(height: AppSizes.sizeXs),
 
+                                // Guest login button
+                                OutlinedButton.icon(
+                                  onPressed: isLoading
+                                      ? null
+                                      : () {
+                                          context.read<AuthBloc>().add(
+                                                const GuestLoginRequested(),
+                                              );
+                                        },
+                                  icon: Icon(Icons.person_outline),
+                                  label: Text('Ingresar como invitado'),
+                                  style: OutlinedButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: AppSizes.sizeXs,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: AppSizes.sizeXs),
+
                                 // Sign up link
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

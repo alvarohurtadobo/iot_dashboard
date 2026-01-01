@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-/// Estados del AuthBloc
+/// AuthBloc states
 abstract class AuthState extends Equatable {
   const AuthState();
 
@@ -8,21 +8,21 @@ abstract class AuthState extends Equatable {
   List<Object> get props => [];
 }
 
-/// Estado inicial
+/// Initial state
 class AuthInitial extends AuthState {}
 
-/// Estado de carga
+/// Loading state
 class AuthLoading extends AuthState {}
 
-/// Estado autenticado
+/// Authenticated state
 class AuthAuthenticated extends AuthState {
   const AuthAuthenticated();
 }
 
-/// Estado no autenticado
+/// Unauthenticated state
 class AuthUnauthenticated extends AuthState {}
 
-/// Estado de error
+/// Error state
 class AuthError extends AuthState {
   final String message;
 
@@ -32,7 +32,7 @@ class AuthError extends AuthState {
   List<Object> get props => [message];
 }
 
-/// Estado de invitado (acceso sin autenticación)
+/// Guest state (access without authentication)
 class AuthGuest extends AuthState {
   const AuthGuest();
 }
