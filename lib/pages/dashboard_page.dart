@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iot_dashboard/common/constants/colors.dart';
 import 'package:iot_dashboard/common/constants/sizes.dart';
+import 'package:iot_dashboard/router/app_router.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -96,7 +98,7 @@ class DashboardPage extends StatelessWidget {
           SizedBox(width: AppSizes.size2Xs),
           IconButton(
             icon: Icon(Icons.settings_outlined),
-            onPressed: () {},
+            onPressed: () => context.go(AppRoutes.settings),
           ),
         ],
       ),
