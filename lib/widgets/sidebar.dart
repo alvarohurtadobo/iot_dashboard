@@ -59,6 +59,12 @@ class Sidebar extends StatelessWidget {
         route: AppRoutes.notifications,
       ),
       _MenuItem(
+        title: 'Configuración',
+        icon: Icons.settings_outlined,
+        activeIcon: Icons.settings,
+        route: AppRoutes.settings,
+      ),
+      _MenuItem(
         title: 'Salir',
         icon: Icons.logout_outlined,
         activeIcon: Icons.logout,
