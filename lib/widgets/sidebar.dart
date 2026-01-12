@@ -217,10 +217,11 @@ class Sidebar extends StatelessWidget {
       selectedTileColor: colorFoundations.interactionTertiary,
       onTap: () {
         if (item.isLogout) {
-          // Handle logout
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Función de salir no implementada')),
-          );
+          // Handle logout - navigate to welcome page
+          if (isDrawer) {
+            onToggle(); // Close drawer
+          }
+          context.go(AppRoutes.welcome);
         } else if (item.route != null) {
           if (isDrawer) {
             onToggle(); // Close drawer
