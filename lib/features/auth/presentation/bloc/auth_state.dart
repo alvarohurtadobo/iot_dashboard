@@ -1,4 +1,7 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:equatable/equatable.dart';
+
+part 'auth_state.freezed.dart';
 
 /// AuthBloc states
 abstract class AuthState extends Equatable {
