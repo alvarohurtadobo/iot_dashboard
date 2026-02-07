@@ -48,19 +48,25 @@ class _LoginPageState extends State<LoginPage> {
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthAuthenticated || state is AuthGuest) {
-          context.go(AppRoutes.dashboard);
-        } else if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
+        state.maybeWhen(
+          authenticated: () => context.go(AppRoutes.dashboard),
+          guest: () => context.go(AppRoutes.dashboard),
+          error: (message) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+          orElse: () {},
+        );
       },
       builder: (context, state) {
-        final isLoading = state is AuthLoading;
+        final isLoading = state.maybeWhen(
+          loading: () => true,
+          orElse: () => false,
+        );
 
         return Scaffold(
           backgroundColor: colorFoundations.backgroundPagePrimary,

@@ -1,43 +1,27 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:equatable/equatable.dart';
 
 part 'auth_state.freezed.dart';
 
-/// AuthBloc states
-abstract class AuthState extends Equatable {
-  const AuthState();
-
-  @override
-  List<Object> get props => [];
-}
-
-/// Initial state
-class AuthInitial extends AuthState {}
-
-/// Loading state
-class AuthLoading extends AuthState {}
-
-/// Authenticated state
-class AuthAuthenticated extends AuthState {
-  const AuthAuthenticated();
-}
-
-/// Unauthenticated state
-class AuthUnauthenticated extends AuthState {}
-
-/// Error state
-class AuthError extends AuthState {
-  final String message;
-
-  const AuthError(this.message);
-
-  @override
-  List<Object> get props => [message];
-}
-
-/// Guest state (access without authentication)
-class AuthGuest extends AuthState {
-  const AuthGuest();
+/// AuthBloc states using Freezed for union types
+@freezed
+class AuthState with _$AuthState {
+  /// Initial state
+  const factory AuthState.initial() = _Initial;
+  
+  /// Loading state
+  const factory AuthState.loading() = _Loading;
+  
+  /// Authenticated state
+  const factory AuthState.authenticated() = _Authenticated;
+  
+  /// Unauthenticated state
+  const factory AuthState.unauthenticated() = _Unauthenticated;
+  
+  /// Error state with error message
+  const factory AuthState.error(String message) = _Error;
+  
+  /// Guest state (access without authentication)
+  const factory AuthState.guest() = _Guest;
 }
 
 

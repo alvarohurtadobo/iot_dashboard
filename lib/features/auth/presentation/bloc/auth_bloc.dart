@@ -17,7 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.loginUseCase,
     required this.logoutUseCase,
     required this.checkAuthStatusUseCase,
-  }) : super(AuthInitial()) {
+  }) : super(const AuthState.initial()) {
     on<LoginRequested>(_onLoginRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<AuthStatusChecked>(_onAuthStatusChecked);
@@ -28,14 +28,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LoginRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(const AuthState.loading());
     try {
       await loginUseCase.execute(event.credentials);
-      emit(AuthAuthenticated());
+      emit(const AuthState.authenticated());
     } on ApiException catch (e) {
-      emit(AuthError(e.message));
+      emit(AuthState.error(e.message));
     } catch (e) {
-      emit(AuthError('Unexpected error. Please try again.'));
+      emit(AuthState.error('Unexpected error. Please try again.'));
     }
   }
 
@@ -43,13 +43,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogoutRequested event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading());
+    emit(const AuthState.loading());
     try {
       await logoutUseCase.execute();
-      emit(AuthUnauthenticated());
+      emit(const AuthState.unauthenticated());
     } catch (e) {
       // Even if it fails, mark as unauthenticated
-      emit(AuthUnauthenticated());
+      emit(const AuthState.unauthenticated());
     }
   }
 
@@ -59,9 +59,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     final isAuthenticated = await checkAuthStatusUseCase.execute();
     if (isAuthenticated) {
-      emit(AuthAuthenticated());
+      emit(const AuthState.authenticated());
     } else {
-      emit(AuthUnauthenticated());
+      emit(const AuthState.unauthenticated());
     }
   }
 
@@ -70,7 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     // Allow guest access without authentication
-    emit(AuthGuest());
+    emit(const AuthState.guest());
   }
 }
 
