@@ -1,20 +1,16 @@
-import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'auth_tokens.freezed.dart';
 
 /// Domain model for authentication tokens
 /// Represents tokens in the application domain
-class AuthTokens extends Equatable {
-  final String accessToken;
-  final String refreshToken;
-  final String tokenType;
-
-  const AuthTokens({
-    required this.accessToken,
-    required this.refreshToken,
-    required this.tokenType,
-  });
-
-  @override
-  List<Object> get props => [accessToken, refreshToken, tokenType];
+@freezed
+class AuthTokens with _$AuthTokens {
+  const factory AuthTokens({
+    required String accessToken,
+    required String refreshToken,
+    required String tokenType,
+  }) = _AuthTokens;
 }
 
 
