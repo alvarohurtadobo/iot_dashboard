@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   void _handleLogin() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthBloc>().add(
-            LoginRequested(
+            AuthEvent.loginRequested(
               AuthCredentials(
                 email: _emailController.text.trim(),
                 password: _passwordController.text,
@@ -197,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ? null
                                       : () {
                                           context.read<AuthBloc>().add(
-                                                const GuestLoginRequested(),
+                                                const AuthEvent.guestLoginRequested(),
                                               );
                                         },
                                   icon: Icon(Icons.person_outline),
