@@ -12,7 +12,7 @@ part of 'auth_credentials.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-abstract mixin class _$AuthCredentials {
+mixin _$AuthCredentials {
 
  String get email; String get password;
 /// Create a copy of AuthCredentials

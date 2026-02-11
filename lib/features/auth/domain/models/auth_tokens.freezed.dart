@@ -12,7 +12,7 @@ part of 'auth_tokens.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-abstract mixin class _$AuthTokens {
+mixin _$AuthTokens {
 
  String get accessToken; String get refreshToken; String get tokenType;
 /// Create a copy of AuthTokens
