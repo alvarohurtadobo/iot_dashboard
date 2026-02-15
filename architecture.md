@@ -99,30 +99,27 @@ packages/features/[feature_name]/
 ### Dependencias principales:
 ```yaml
 dependencies:
-  core:
-    path: ../../core
-  dartz: 0.10.1                    # Either<L, R> para manejo de errores
-  dio: 5.9.0                       # Cliente HTTP
   flutter:
     sdk: flutter
-  flutter_bloc: 9.1.1              # State management (BLoC)
-  freezed: 3.2.3                   # Inmutabilidad y union types
-  freezed_annotation: 3.1.0        # Anotaciones para freezed
-  get_it: 8.2.0                    # Service locator para DI
-  injectable: 2.5.2                # Code generation para DI
+  cupertino_icons: 1.0.8
+  go_router: 17.0.1                # Navegación y routing
+  flutter_bloc: 8.1.3              # State management (BLoC)
+  equatable: 2.0.5                 # Comparación de objetos
+  dio: 5.9.1                       # Cliente HTTP
+  shared_preferences: 2.2.2        # Almacenamiento local
+  retrofit: 4.9.2                  # Generación de clientes HTTP
   json_annotation: 4.9.0           # Anotaciones para JSON
-  remote_client:
-    path: ../../libraries/remote_client  # BaseRepository, BaseDataSource
-  retrofit: 4.8.0                  # Generación de clientes HTTP
+  freezed_annotation: 3.1.0         # Anotaciones para freezed
 
 dev_dependencies:
-  build_runner: 2.10.1             # Code generation runner
   flutter_test:
     sdk: flutter
-  freezed: 3.2.3                   # Code generator para freezed
-  injectable_generator: 2.9.0      # Generator para injectable
-  json_serializable: 6.11.1        # Generator para JSON
-  retrofit_generator: 10.1.1       # Generator para Retrofit
+  flutter_lints: 6.0.0              # Linter rules
+  build_runner: 2.10.1              # Code generation runner
+  retrofit_generator: 10.2.1       # Generator para Retrofit
+  json_serializable: 6.11.1         # Generator para JSON
+  flutter_launcher_icons: 0.14.4   # Generación de iconos
+  freezed: 3.2.3                    # Code generator para freezed
 ```
 
 **NOTA**: En este proyecto se usan versiones fijas (sin `^`). No agregar `^` al versionar.
