@@ -63,7 +63,7 @@ class _$AuthCredentialsCopyWithImpl<$Res>
 /// Create a copy of AuthCredentials
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? email = null,Object? password = null,}) {
-  return _then(_self.copyWith(
+  return _then(AuthCredentials(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,
@@ -87,11 +87,10 @@ extension AuthCredentialsPatterns on AuthCredentials {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AuthCredentials value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _AuthCredentials() when $default != null:
-return $default(_that);case _:
+case _:
   return orElse();
 
 }
@@ -109,11 +108,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AuthCredentials value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(){
 final _that = this;
 switch (_that) {
-case _AuthCredentials():
-return $default(_that);case _:
+case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -130,11 +128,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AuthCredentials value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(){
 final _that = this;
 switch (_that) {
-case _AuthCredentials() when $default != null:
-return $default(_that);case _:
+case _:
   return null;
 
 }
@@ -151,10 +148,9 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String email,  String password)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _AuthCredentials() when $default != null:
-return $default(_that.email,_that.password);case _:
+case _:
   return orElse();
 
 }
@@ -172,10 +168,9 @@ return $default(_that.email,_that.password);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String email,  String password)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>() {final _that = this;
 switch (_that) {
-case _AuthCredentials():
-return $default(_that.email,_that.password);case _:
+case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,82 +187,13 @@ return $default(_that.email,_that.password);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String email,  String password)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>() {final _that = this;
 switch (_that) {
-case _AuthCredentials() when $default != null:
-return $default(_that.email,_that.password);case _:
+case _:
   return null;
 
 }
 }
-
-}
-
-/// @nodoc
-
-
-class _AuthCredentials implements AuthCredentials {
-  const _AuthCredentials({required this.email, required this.password});
-  
-
-@override final  String email;
-@override final  String password;
-
-/// Create a copy of AuthCredentials
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$AuthCredentialsCopyWith<_AuthCredentials> get copyWith => __$AuthCredentialsCopyWithImpl<_AuthCredentials>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthCredentials&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,email,password);
-
-@override
-String toString() {
-  return 'AuthCredentials(email: $email, password: $password)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$AuthCredentialsCopyWith<$Res> implements $AuthCredentialsCopyWith<$Res> {
-  factory _$AuthCredentialsCopyWith(_AuthCredentials value, $Res Function(_AuthCredentials) _then) = __$AuthCredentialsCopyWithImpl;
-@override @useResult
-$Res call({
- String email, String password
-});
-
-
-
-
-}
-/// @nodoc
-class __$AuthCredentialsCopyWithImpl<$Res>
-    implements _$AuthCredentialsCopyWith<$Res> {
-  __$AuthCredentialsCopyWithImpl(this._self, this._then);
-
-  final _AuthCredentials _self;
-  final $Res Function(_AuthCredentials) _then;
-
-/// Create a copy of AuthCredentials
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = null,Object? password = null,}) {
-  return _then(_AuthCredentials(
-email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
-as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
 
 }
 

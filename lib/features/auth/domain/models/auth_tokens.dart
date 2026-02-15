@@ -6,11 +6,17 @@ part 'auth_tokens.freezed.dart';
 /// Represents tokens in the application domain
 @freezed
 class AuthTokens with _$AuthTokens {
-  const factory AuthTokens({
-    required String accessToken,
-    required String refreshToken,
-    required String tokenType,
-  }) = _AuthTokens;
+  AuthTokens({
+    required this.accessToken,
+    required this.refreshToken,
+    required this.tokenType,
+  });
+  @override
+  final String accessToken;
+  @override
+  final String refreshToken;
+  @override
+  final String tokenType;
 }
 
 

@@ -6,9 +6,9 @@ part 'auth_credentials.freezed.dart';
 /// Represents domain data, not API data
 @freezed
 class AuthCredentials with _$AuthCredentials {
-  const factory AuthCredentials({
-    required String email,
-    required String password,
-  }) = _AuthCredentials;
+  AuthCredentials({required this.email, required this.password});
+  @override
+  final String email;
+  @override
+  final String password;
 }
-
