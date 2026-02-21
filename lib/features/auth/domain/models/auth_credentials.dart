@@ -1,14 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'auth_credentials.freezed.dart';
+import 'package:equatable/equatable.dart';
 
 /// Domain model for authentication credentials
 /// Represents domain data, not API data
-@freezed
-class AuthCredentials with _$AuthCredentials {
-  AuthCredentials({required this.email, required this.password});
-  @override
+class AuthCredentials extends Equatable {
   final String email;
-  @override
   final String password;
+
+  const AuthCredentials({
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  List<Object> get props => [email, password];
 }
