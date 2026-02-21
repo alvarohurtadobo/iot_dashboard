@@ -46,7 +46,7 @@ class IoTDashboardApp extends StatelessWidget {
             loginUseCase: loginUseCase,
             logoutUseCase: logoutUseCase,
             checkAuthStatusUseCase: checkAuthStatusUseCase,
-          )..add(const AuthEvent.authStatusChecked()),
+          )..add(const AuthStatusChecked()),
         ),
       ],
       child: MaterialApp.router(

@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   void _handleLogin() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthBloc>().add(
-            AuthEvent.loginRequested(
+            LoginRequested(
               AuthCredentials(
                 email: _emailController.text.trim(),
                 password: _passwordController.text,
@@ -48,25 +48,19 @@ class _LoginPageState extends State<LoginPage> {
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        state.maybeWhen(
-          authenticated: () => context.go(AppRoutes.dashboard),
-          guest: () => context.go(AppRoutes.dashboard),
-          error: (message) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(message),
-                backgroundColor: Colors.red,
-              ),
-            );
-          },
-          orElse: () {},
-        );
+        if (state is AuthAuthenticated || state is AuthGuest) {
+          context.go(AppRoutes.dashboard);
+        } else if (state is AuthError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
       },
       builder: (context, state) {
-        final isLoading = state.maybeWhen(
-          loading: () => true,
-          orElse: () => false,
-        );
+        final isLoading = state is AuthLoading;
 
         return Scaffold(
           backgroundColor: colorFoundations.backgroundPagePrimary,
@@ -197,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ? null
                                       : () {
                                           context.read<AuthBloc>().add(
-                                                const AuthEvent.guestLoginRequested(),
+                                                const GuestLoginRequested(),
                                               );
                                         },
                                   icon: Icon(Icons.person_outline),
