@@ -1,22 +1,37 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:iot_dashboard/features/auth/domain/models/auth_credentials.dart';
 
-part 'auth_event.freezed.dart';
+/// AuthBloc events
+abstract class AuthEvent extends Equatable {
+  const AuthEvent();
 
-/// AuthBloc events using Freezed for union types
-@freezed
-class AuthEvent with _$AuthEvent {
-  /// Event to request login
-  const factory AuthEvent.loginRequested(AuthCredentials credentials) = _LoginRequested;
-  
-  /// Event to request logout
-  const factory AuthEvent.logoutRequested() = _LogoutRequested;
-  
-  /// Event to check authentication status
-  const factory AuthEvent.authStatusChecked() = _AuthStatusChecked;
-  
-  /// Event to login as guest
-  const factory AuthEvent.guestLoginRequested() = _GuestLoginRequested;
+  @override
+  List<Object> get props => [];
+}
+
+/// Event to request login
+class LoginRequested extends AuthEvent {
+  final AuthCredentials credentials;
+
+  const LoginRequested(this.credentials);
+
+  @override
+  List<Object> get props => [credentials];
+}
+
+/// Event to request logout
+class LogoutRequested extends AuthEvent {
+  const LogoutRequested();
+}
+
+/// Event to check authentication status
+class AuthStatusChecked extends AuthEvent {
+  const AuthStatusChecked();
+}
+
+/// Event to login as guest
+class GuestLoginRequested extends AuthEvent {
+  const GuestLoginRequested();
 }
 
 

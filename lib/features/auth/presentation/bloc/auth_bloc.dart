@@ -17,49 +17,60 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.loginUseCase,
     required this.logoutUseCase,
     required this.checkAuthStatusUseCase,
-  }) : super(const AuthState.initial()) {
-    on<AuthEvent>(_onEvent);
+  }) : super(const AuthInitial()) {
+    on<LoginRequested>(_onLoginRequested);
+    on<LogoutRequested>(_onLogoutRequested);
+    on<AuthStatusChecked>(_onAuthStatusChecked);
+    on<GuestLoginRequested>(_onGuestLoginRequested);
   }
 
-  Future<void> _onEvent(
-    AuthEvent event,
+  Future<void> _onLoginRequested(
+    LoginRequested event,
     Emitter<AuthState> emit,
   ) async {
-    await event.when(
-      loginRequested: (credentials) async {
-        emit(const AuthState.loading());
-        try {
-          await loginUseCase.execute(credentials);
-          emit(const AuthState.authenticated());
-        } on ApiException catch (e) {
-          emit(AuthState.error(e.message));
-        } catch (e) {
-          emit(AuthState.error('Unexpected error. Please try again.'));
-        }
-      },
-      logoutRequested: () async {
-        emit(const AuthState.loading());
-        try {
-          await logoutUseCase.execute();
-          emit(const AuthState.unauthenticated());
-        } catch (e) {
-          // Even if it fails, mark as unauthenticated
-          emit(const AuthState.unauthenticated());
-        }
-      },
-      authStatusChecked: () async {
-        final isAuthenticated = await checkAuthStatusUseCase.execute();
-        if (isAuthenticated) {
-          emit(const AuthState.authenticated());
-        } else {
-          emit(const AuthState.unauthenticated());
-        }
-      },
-      guestLoginRequested: () async {
-        // Allow guest access without authentication
-        emit(const AuthState.guest());
-      },
-    );
+    emit(const AuthLoading());
+    try {
+      await loginUseCase.execute(event.credentials);
+      emit(const AuthAuthenticated());
+    } on ApiException catch (e) {
+      emit(AuthError(e.message));
+    } catch (e) {
+      emit(AuthError('Unexpected error. Please try again.'));
+    }
+  }
+
+  Future<void> _onLogoutRequested(
+    LogoutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthLoading());
+    try {
+      await logoutUseCase.execute();
+      emit(const AuthUnauthenticated());
+    } catch (e) {
+      // Even if it fails, mark as unauthenticated
+      emit(const AuthUnauthenticated());
+    }
+  }
+
+  Future<void> _onAuthStatusChecked(
+    AuthStatusChecked event,
+    Emitter<AuthState> emit,
+  ) async {
+    final isAuthenticated = await checkAuthStatusUseCase.execute();
+    if (isAuthenticated) {
+      emit(const AuthAuthenticated());
+    } else {
+      emit(const AuthUnauthenticated());
+    }
+  }
+
+  Future<void> _onGuestLoginRequested(
+    GuestLoginRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    // Allow guest access without authentication
+    emit(const AuthGuest());
   }
 }
 
